@@ -38,5 +38,9 @@ export default {
 
   tailwindcss: {
     jit: true
+  },
+
+  server: {
+    port: 3032
   }
 }
