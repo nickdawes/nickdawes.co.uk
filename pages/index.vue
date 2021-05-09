@@ -1,20 +1,21 @@
 <template>
   <div>
-      <nav class="fixed top-0 left-0 right-0 mx-auto flex justify-center items-center h-16 bg-red-200">
-        <a class="mx-4" href="#about">About Me</a>
-        <a class="mx-4" href="#services">Services</a>
-        <a class="mx-4" href="#portfolio">Portfolio</a>
-        <a class="mx-4" href="#contact">Contact Me</a>
-        <a class="mx-4" href="#testimonials">Testimonials</a>
-      </nav>
+    <nav class="fixed top-0 left-0 right-0 mx-auto flex justify-center items-center h-16 bg-red-200 text-xs sm:text-base">
+      <a class="mx-2 sm:mx-4" href="#about">About Me</a>
+      <a class="mx-2 sm:mx-4" href="#services">Services</a>
+      <a class="mx-2 sm:mx-4" href="#portfolio">Portfolio</a>
+      <a class="mx-2 sm:mx-4" href="#contact">Contact Me</a>
+      <a class="mx-2 sm:mx-4" href="#testimonials">Testimonials</a>
+    </nav>
 
-    <header class="min-h-screen flex flex-col justify-center items-center text-white" style="background-image: linear-gradient(to top, rgb(83, 120, 149) 0%, rgb(9, 32, 63) 40%, rgb(0, 0, 0) 100%);">
+    <header class="overflow-hidden relative min-h-screen flex justify-center items-center text-white px-2" style="background-image: linear-gradient(to top, rgb(83, 120, 149) 0%, rgb(9, 32, 63) 40%, rgb(0, 0, 0) 100%);">
+      <canvas id="stars" width="3000" height="1500" class="absolute top-0 left-0 bottom-0 right-0"></canvas>
       <h1>I offer affordable, professional web development services to businesses and individuals in Cheshire.</h1>
       <h2>07743444062</h2>
       <h2>mail@nickdawes.co.uk</h2>
     </header>
 
-    <section class="max-w-screen-lg mx-auto min-h-screen pt-16" id="about">
+    <section class="max-w-screen-lg mx-auto min-h-screen pt-16 px-2" id="about">
       <span class="text-center">
         <h1 class="mx-auto">About Nick Dawes</h1>
       </span>
@@ -41,7 +42,7 @@
       </div>
     </section>
 
-    <section class="max-w-screen-lg mx-auto min-h-screen pt-16" id="services">
+    <section class="max-w-screen-lg mx-auto min-h-screen pt-16 px-2" id="services">
       <span class="text-center">
         <h1>Services and packages</h1>
       </span>
@@ -62,7 +63,7 @@
       </div>
     </section>
 
-    <section class="max-w-screen-lg mx-auto min-h-screen pt-16" id="portfolio">
+    <section class="max-w-screen-lg mx-auto min-h-screen pt-16 px-2" id="portfolio">
       <span class="text-center">
         <h1>Web design portfolio.</h1>
       </span>
@@ -82,7 +83,7 @@
       </div>
     </section>
 
-    <section class="max-w-screen-lg mx-auto min-h-screen pt-16" id="contact">
+    <section class="max-w-screen-lg mx-auto min-h-screen pt-16 px-2" id="contact">
       <span class="text-center">
         <h1>Contact me</h1>
       </span>
@@ -91,7 +92,7 @@
       </form>
     </section>
 
-    <section class="max-w-screen-lg mx-auto min-h-screen pt-16" id="testimonials">
+    <section class="max-w-screen-lg mx-auto min-h-screen pt-16 px-2" id="testimonials">
       <span class="text-center">
         <h1>Testimonials</h1>
       </span>
@@ -125,22 +126,28 @@ export default {
       thisYear: new Date().getFullYear()
     }
   },
-  head() {
-    return {
-      title: 'Nick Dawes – Web Design Cheshire – Websites from £200',
-      meta: [
-        // hid is used as unique identifier. Do not use `vmid` for it as it will not work
-        {
-          hid: 'description',
-          name: 'description',
-          content: 'My custom description'
-        }
-      ]
+  mounted() {
+    function getRandom(min, max) {
+      return Math.floor(Math.random() * (max - min + 1)) + min;
     }
-  }
+    const canvas = document.getElementById('stars'),
+      context = canvas.getContext('2d'),
+      stars = 800,
+      colorRange = [0,60,240];
+    for (let i = 0; i < stars; i++) {
+      let x = Math.random() * canvas.offsetWidth
+      let y = Math.random() * canvas.offsetHeight
+      let radius = Math.random() * 1.2
+      let hue = colorRange[getRandom(0,colorRange.length - 1)]
+      let sat = getRandom(50,100)
+      context.beginPath();
+      context.arc(x, y, radius, 0, 360);
+      context.fillStyle = "hsl(" + hue + ", " + sat + "%, 88%)";
+      context.fill();
+    }
+  },
 }
 </script>
 
 <style>
-
 </style>
